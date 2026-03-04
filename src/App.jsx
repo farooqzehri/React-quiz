@@ -5,20 +5,20 @@ function App() {
  const [question , setQuestion] = useState([])
  const [loading , setLoading] = useState(true)
  const [error , setError] = useState(false)
- const [index , setIndex] = useState(0)
+ const [index , setIndex] = useState(4)
 
   useEffect(()=>{
     axios('https://the-trivia-api.com/v2/questions')
     .then(res => {
       setQuestion(res.data)
-      console.log(res.data.title);
+      console.log(res.data);
       
     })
     .catch(err =>{
       setError(err)
     })
-    .finally(load =>{
-      setLoading(load)
+    .finally(()=>{
+      setLoading(false)
     })
   } , [])
 
@@ -27,14 +27,10 @@ function App() {
     <>
     {loading && <h1>Loading...</h1>}
     {error && <h1>Error Agya</h1>}
-    {question && question.map((item , index) => {
-    return(
-      <div key={index}>
-        <h1>{item.question.text}</h1>
-      </div>
-    )
-      
-    })}
+    {question && !loading &&(
+       <div>
+      <h1>Q{index + 1}: {question[index].question.text}</h1>
+    </div> )}
   
     </>
   )
