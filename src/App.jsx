@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import shuffleArray from 'shuffle-array'
 
 function App() {
  const [question , setQuestion] = useState([])
@@ -31,6 +32,14 @@ function App() {
        <div>
       <h1>Q{index + 1}: {question[index].question.text}</h1>
     </div> )}
+    {shuffleArray([...question[index].incorrectAnswers , question[index].correctAnswer]).map((item , index) => {
+      return(
+        <div key={`option${index}`}>
+          <input type="radio" name='question' value={item} ref={ el => item.current[index] = el} />
+          
+        </div>
+      )
+    })}
   
     </>
   )
