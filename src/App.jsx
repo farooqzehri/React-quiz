@@ -6,7 +6,7 @@ function App() {
   const [question, setQuestion] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const [index, setIndex] = useState(4)
+  const [index, setIndex] = useState(0)
   const [result , setResult] = useState(false)
   const [marks , setMarks] = useState(0)
   const input = useRef([]);
@@ -28,9 +28,9 @@ function App() {
     const selectedOption = input.current.find(item => item && item.checked);
     console.log(selectedOption.value);
     console.log(question[index].correctAnswer);
-    {question[index].correctAnswer === selectedOption.value ? setMarks(marks + 10) : marks
+    question[index].correctAnswer === selectedOption.value ? setMarks(marks + 10) : marks
       index < 9 ? setIndex(index + 1) : setResult(true)
-    }
+    
     if ( index === question.length - 1) {
       setResult(true)
     }
