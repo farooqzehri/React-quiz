@@ -28,6 +28,13 @@ function App() {
     const selectedOption = input.current.find(item => item && item.checked);
     console.log(selectedOption.value);
     console.log(question[index].correctAnswer);
+    {question[index].correctAnswer === selectedOption.value ? setMarks(marks + 10) : marks
+      index < 9 ? setIndex(index + 1) : setResult(true)
+    }
+    if ( index === question.length - 1) {
+      setResult(true)
+    }
+    
     
     
   }
@@ -37,7 +44,13 @@ function App() {
     <>
       {loading && <h1>Loading...</h1>}
       {error && <h1>Error Agya</h1>}
-      {question && !loading && (
+      {result && (
+        <div>
+          <h1>Final Result</h1>
+          <h1>Result: {marks}</h1>
+        </div>
+      )}
+      {question && !result && !loading && (
         <div className='question'>
           <h1>Q{index + 1}: {question[index].question.text}</h1>
         
