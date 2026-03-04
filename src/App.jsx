@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import shuffleArray from 'shuffle-array'
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [index, setIndex] = useState(4)
-
+  const input = useRef([]);
   useEffect(() => {
     axios('https://the-trivia-api.com/v2/questions')
       .then(res => {
@@ -31,19 +31,20 @@ function App() {
       {question && !loading && (
         <div className='question'>
           <h1>Q{index + 1}: {question[index].question.text}</h1>
-        </div>)}
-      {shuffleArray([
-        ...question[index].incorrectAnswers,
-        question[index].correctAnswer]).map(
-          (item, indx) => {
+        
+       {shuffleArray([...question[index].incorrectAnswers, question[index].correctAnswer]).map((item,indx) => {
             return (
               <div key={`option${indx}`}>
-                <input type="radio" name='question' value={item} ref={el => item.current[indx] = el} />
+                <input 
+                type="radio"
+                 name='question'
+                 value={item} ref={el => input.current[indx] = el} />
                 <label htmlFor={indx}>{item}</label>
 
               </div>
             )
           })}
+          </div>)}
 
     </>
   )
