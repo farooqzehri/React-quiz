@@ -11,7 +11,7 @@ function App() {
     axios('https://the-trivia-api.com/v2/questions')
     .then(res => {
       setQuestion(res.data)
-      console.log(res.data);
+      console.log(res.data.title);
       
     })
     .catch(err =>{
@@ -23,14 +23,19 @@ function App() {
   } , [])
 
   return (
+
     <>
     {loading && <h1>Loading...</h1>}
     {error && <h1>Error Agya</h1>}
-    {question && <div className='question' key={question.title}>
-      <h1>{question[index].question.text}</h1>
+    {question && question.map((item , index) => {
+    return(
+      <div key={index}>
+        <h1>{item.question.text}</h1>
+      </div>
+    )
       
-      </div>}
-    
+    })}
+  
     </>
   )
 }
