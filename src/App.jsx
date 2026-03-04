@@ -7,6 +7,8 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [index, setIndex] = useState(4)
+  const [result , setResult] = useState(false)
+  const [marks , setMarks] = useState(0)
   const input = useRef([]);
   useEffect(() => {
     axios('https://the-trivia-api.com/v2/questions')
@@ -22,6 +24,13 @@ function App() {
         setLoading(false)
       })
   }, [])
+  const nextQuestion = () => {
+    const selectedOption = input.current.find(item => item && item.checked);
+    console.log(selectedOption.value);
+    console.log(question[index].correctAnswer);
+    
+    
+  }
 
   return (
 
@@ -44,6 +53,8 @@ function App() {
               </div>
             )
           })}
+          <br /> <br />
+          <button onClick={nextQuestion}>Next</button>
           </div>)}
 
     </>
